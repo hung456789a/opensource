@@ -1,0 +1,94 @@
+# Default values for postgres.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Replica count for StatefulSet
+replicaCount: 1
+
+# PostgreSQL specific image and credentials
+postgres:
+  image:
+    repository: postgres
+    tag: "15"
+    pullPolicy: IfNotPresent
+  # Postgres user, database and password. If password is empty, chart will create a Secret with a generated password.
+  user: postgres
+  password: ""
+  database: postgres
+
+# Image pull secrets
+imagePullSecrets: []
+
+# Override chart name
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 5432
+
+# Persistence settings for PostgreSQL data directory
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 8Gi
+  # Set to empty string to not set storageClassName (will use cluster default)
+  storageClass: ""
+
+# Liveness and readiness probes. By default left empty; templates will fallback to pg_isready probes.
+livenessProbe: {}
+readinessProbe: {}
+
+resources: {}
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+# Additional configuration
+extraEnv: []
+extraVolumes: []
+extraVolumeMounts: []
+
+# Existing secret: if set, chart will use this Secret instead of creating one
+existingSecret: ""
+
+# Service type for headless service used by StatefulSet (if needed)
+headless:
+  enabled: true
+  type: ClusterIP
+
+# Ingress defaults (kept for compatibility with existing templates)
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts: []
+  tls: []
+
+# HTTPRoute (Gateway API) defaults
+httpRoute:
+  enabled: false
+  annotations: {}
+  parentRefs: []
+  hostnames: []
+  rules: []
+
+# Autoscaling defaults
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80

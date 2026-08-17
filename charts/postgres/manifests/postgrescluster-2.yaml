@@ -1,0 +1,10 @@
+apiVersion: database.example.com/v1
+kind: PostgresCluster
+
+metadata:
+  name: my-postgres-2
+
+spec:
+  instances: 1
+  postgresVersion: "18"
+  storage: 10Gi
