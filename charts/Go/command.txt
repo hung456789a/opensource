@@ -1,3 +1,0 @@
-go mod init controller2
-go mod tidy
-go build -o controller2
