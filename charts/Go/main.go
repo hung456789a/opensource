@@ -1,34 +1,44 @@
 package main
 
-import "fmt"
-
-type giangvien struct {
-	name   string
-	gender int
-	phone  string
-}
-
-func (g *giangvien) hienthithongtin() {
-	fmt.Printf("Ho ten giang vien: %s \n", g.name)
-	fmt.Printf("Gioi tinh: %d \n", g.gender)
-	fmt.Printf("So dien thoai: %s \n", g.phone)
-}
-
-func (g *giangvien) clear() {
-	g.name = ""
-	g.gender = 0
-	g.phone = ""
-}
+import (
+	"context"
+	"fmt"
+	"time"
+)
 
 func main() {
-	gv := giangvien{
-		name:   "John",
-		gender: 1,
-		phone:  "123456789",
+	ctx, cancel := context.WithTimeout(context.Background(), 1500*time.Microsecond)
+	defer cancel()
+
+	go cookPho(ctx, status)
+	go cookPizza(ctx, status)
+
+	// do something
+	for {
+		select {
+		case <-
+		}
 	}
-	gv.hienthithongtin()
-	fmt.Println()
-	gv.clear()
-	fmt.Println()
-	gv.hienthithongtin()
+}
+
+func cookPho(ctx context.Context, status string) {
+	select {
+	case <-ctx.Done():
+		fmt.Println("Cook pho done")
+		return
+	case <-time.After(100 * time.Millisecond):
+		fmt.Println("Cooking pho")
+		return status
+	}
+}
+
+func cookPizza(ctx context.Context) {
+	select {
+	case <-ctx.Done():
+		fmt.Println("Cook pizza done")
+		return
+	case <-time.After(200 * time.Millisecond):
+		fmt.Println("Cooking pizza")
+		return status
+	}
 }

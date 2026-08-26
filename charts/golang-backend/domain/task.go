@@ -1,6 +1,8 @@
 package domain
 
 import (
+	"context"
+
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -15,5 +17,6 @@ type Task struct {
 }
 
 type TaskRepository interface {
-	Create
+	Create(c context.Context, task *Task) error
+	FetchByUserID(c context.Context, userID string) ([]Task, error)
 }
