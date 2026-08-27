@@ -1,7 +1,10 @@
 package main
 
 import (
+	"golang/bootstrap"
 	"time"
+
+	"golang/route"
 
 	"github.com/gin-gonic/gin"
 )
