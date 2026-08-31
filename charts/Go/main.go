@@ -1,44 +1,20 @@
 package main
 
-import (
-	"context"
-	"fmt"
-	"time"
-)
+import "fmt"
+
+type NhanVien struct {
+	Id   int
+	Name string
+	Age  int
+}
 
 func main() {
-	ctx, cancel := context.WithTimeout(context.Background(), 1500*time.Microsecond)
-	defer cancel()
-
-	go cookPho(ctx, status)
-	go cookPizza(ctx, status)
-
-	// do something
-	for {
-		select {
-		case <-
-		}
+	employees := [...]NhanVien{
+		{Id: 1, Name: "nguyen van a", Age: 18},
+		{Id: 2, Name: "nguyen van b", Age: 19},
+		{Id: 3, Name: "nguyen van c", Age: 20},
 	}
-}
-
-func cookPho(ctx context.Context, status string) {
-	select {
-	case <-ctx.Done():
-		fmt.Println("Cook pho done")
-		return
-	case <-time.After(100 * time.Millisecond):
-		fmt.Println("Cooking pho")
-		return status
-	}
-}
-
-func cookPizza(ctx context.Context) {
-	select {
-	case <-ctx.Done():
-		fmt.Println("Cook pizza done")
-		return
-	case <-time.After(200 * time.Millisecond):
-		fmt.Println("Cooking pizza")
-		return status
+	for i := 0; i < len(employees); i++ {
+		fmt.Println(employees[i])
 	}
 }
