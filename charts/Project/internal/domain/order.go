@@ -1,6 +1,8 @@
 package domain
 
-import "context"
+import (
+	"context"
+)
 
 type CreateOrderInput struct {
 	UserID    string
@@ -22,6 +24,12 @@ type OrderItem struct {
 	Price     string
 }
 
+type Product struct {
+	ID    string
+	Name  string
+	Price float64
+}
+
 type ProductRepository interface {
-	GetProductByID(ctx context.Context, productID string) ([]Product, error)
+	GetProductByID(ctx context.Context, productIDs []string) ([]Product, error)
 }
