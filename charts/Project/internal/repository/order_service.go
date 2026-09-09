@@ -1,13 +1,13 @@
-package repository
+// package repository
 
-func CreateOrder() {
+// func CreateOrder() {
 
-}
+// }
 
-func ChangeStatus() {
+// func ChangeStatus() {
 
-}
+// }
 
-func CancelOrder() {
+// func CancelOrder() {
 
-}
+// }
