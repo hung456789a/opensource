@@ -62,4 +62,13 @@ func main() {
 		os.Exit(1)
 	}
 	slog.InfoContext(ctx, "Kiểm tra bảng", slog.Bool("exists", exists))
+	
+	if !exists {
+		err = bootstrap.CreateTable(db, ctx, "public", "users")
+		if err != nil {
+			slog.ErrorContext(ctx, "không thể tạo bảng", slog.Any("error", err))
+			os.Exit(1)
+		}
+		slog.InfoContext(ctx, "Tạo bảng thành công")
+	}
 }
