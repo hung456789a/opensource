@@ -5,6 +5,7 @@ import (
 	"log/slog"
 	"os"
 
+	"Project/internal/bootstrap"
 	"Project/internal/database"
 	"Project/internal/logging"
 )
@@ -54,4 +55,11 @@ func main() {
 		os.Exit(1)
 	}
 	defer db.Close()
+
+	exists, err := bootstrap.TableExists(db, ctx, "public", "users")
+	if err != nil {
+		slog.ErrorContext(ctx, "không thể kiểm tra bảng", slog.Any("error", err))
+		os.Exit(1)
+	}
+	slog.InfoContext(ctx, "Kiểm tra bảng", slog.Bool("exists", exists))
 }
